@@ -1,0 +1,41 @@
+def find_path(graph,start, end):
+    v_graph=dict()
+    paths = []
+    stack = []
+    visited = []
+    stack.append(start)
+    for i in graph.keys():
+        v_graph[i] = list()
+    while(len(stack) > 0):
+        check = False
+        n = len(stack) - 1 
+        print(stack)
+        if stack[n] == end :
+            temp=[]
+            for j in stack:
+                temp.append(j)
+            paths=  paths + [temp]
+            print("paths",paths)
+        for i  in graph[stack[n]]:
+            if i not in visited and i not in v_graph[stack[n]]:
+                stack.append(i)
+                v_graph[stack[n]].append(i)
+                v_graph[i].append(stack[n])
+                check = True
+                break
+        if not check :
+            visited.append(stack.pop())
+            if end in visited:
+                visited.remove(end)
+   
+    return paths
+
+graph ={ 
+'a':['c','d'], 
+'b':['d'], 
+'c':['a'], 
+'d':['e', 'd'], 
+'e':['b', 'c'] 
+} 
+path = find_path(graph,'a','c')
+print("final :",path)
