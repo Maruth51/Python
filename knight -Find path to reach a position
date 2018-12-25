@@ -1,0 +1,60 @@
+#queue operations
+from collections import defaultdict
+def get_list(x,y):
+    dx = [2,2,1,1,-1,-1,-2,-2]
+    dy = [-1,1,-2,2,-2,2,1,-1]
+    out_list =[]
+    for i in range(8):
+        xx = x + dx[i]
+        yy = y + dy[i]
+        if 0 < xx <= n and 0 < yy <= n:
+            out_list.append((xx,yy))
+    return out_list
+	
+def find_path(graph,start,end):
+    queue =list()
+    ident  = {}
+    # for k in graph.keys():
+    #     ident[k] ='
+    queue.append(start)
+    visited = []
+    steps = 0
+    find = False
+    while(len(queue)>0):
+        node = queue[0]
+        if end in graph[node]:
+            find = True
+            break;
+        for i in graph[node]:
+            if i not in visited:
+                queue.append(i)
+                ident[i] = node
+        visited.append(queue.pop(0))
+    if find:
+        path = [node]
+        fol =tuple()
+        print(node)
+        while fol != start:
+            l = ident[node]
+            fol = ident[node]
+            node = fol
+            path.append(fol)
+        return path
+    else:
+        return 0
+            
+global n
+n = 8
+graph = {}
+start =(2,2)
+end = (3,1)
+q_lsit = [start]
+while(len(q_lsit) > 0):
+    node = q_lsit[0]
+    if node not in graph.keys():
+        posible_pos = get_list(node[0],node[1])
+        graph[node] = posible_pos
+        q_lsit=q_lsit+posible_pos
+    q_lsit.pop(0)
+path = find_path(graph,start,end)
+print("final :",path)
