@@ -1,0 +1,41 @@
+#Create a Linked List class
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+    def add_node(self,node):
+        if self.head == None:
+            self.head = Node(node)
+        else:
+            temp = self.head
+            while(not temp.nxt == None):
+                temp = temp.nxt
+            temp.nxt = Node(node)
+    def removeElement(self,n):
+        h1= self.head
+        h2 = self.head
+        diff = 0
+        while(not h2.nxt == None):
+            if diff >= n:
+                h1 = h1.nxt
+            h2 = h2.nxt
+            diff = diff + 1
+        print(h1.value,h2.value,diff)
+        h1.nxt = h1.nxt.nxt
+        
+    def display(self):
+        temp = self.head
+        while(not temp.nxt == None):
+            print(temp.value,"-->",end='')
+            temp = temp.nxt
+        print(temp.value)
+class Node:
+    def __init__(self,value):
+        self.value = value
+        self.nxt = None
+    
+lis = LinkedList()
+for i in range(0,10):
+    lis.add_node(i)
+lis.removeElement(4)
+lis.display()
