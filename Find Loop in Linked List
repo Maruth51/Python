@@ -1,0 +1,41 @@
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+    def add_node(self,node):
+        if self.head == None:
+            self.head = Node(node)
+        else:
+            temp = self.head
+            while(not temp.nxt == None):
+                temp = temp.nxt
+            temp.nxt = Node(node)
+            self.tail = temp.nxt
+        
+    def detectloop(self):
+        h1 = self.head
+        h2 = self.head
+        while (h1.nxt != None):
+            h1 = h1.nxt
+            h2 = h2.nxt.nxt
+            if h1 == h2:
+                #print("loop detected",h1.value)
+                return True
+                break
+            #print("h1 :",h1.value, "h2 :",h2.value)
+        return False
+class Node:
+    def __init__(self,value):
+        self.value = value
+        self.nxt = None
+#Drive Code
+lis = LinkedList()
+for i in range(0,10):
+    lis.add_node(i)
+lis.tail.nxt = lis.head.nxt.nxt.nxt.nxt
+
+if lis.detectloop():
+    print("Loop Detected")
+else:
+    print("No Loop")
